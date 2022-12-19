@@ -7,15 +7,15 @@ import ugame
 import stage
 
 def game_scene():
-    # This function is basically the game main theme
+  # This function is basically the game main theme
 
-    print("\n\n\n") # 3 blank lines to represent space between them
-    print("Hello , People we're in space!")
+  print("\n\n\n") # 3 blank lines to represent space between them
+  print("Hello , People we're in space!")
 
     #This will repeat forever since it is a loop
-    while True:
-      pass # This is our placeholder for now 
+  while True:
+    pass # This is our placeholder for now 
 
-if __name__ == "_main_":
-       game_scene()
+if __name__ == "__main__":
+  game_scene()
 
