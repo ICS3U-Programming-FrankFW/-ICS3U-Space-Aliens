@@ -9,10 +9,13 @@ import stage
 def game_scene():
   # This function is basically the game main theme
 
-  print("\n\n\n") # 3 blank lines to represent space between them
-  print("Hello , People we're in space!")
-
-    #This will repeat forever since it is a loop
+  image_bank_background = stage.Bank.from_bmp16("space_aliens_background.bmp")
+  background = stage.Grid(image_bank_background, 10, 8)
+    
+  game = stage.Stage(ugame.display, 60)
+  game.layers = [background]
+  game.render_block()
+  #This will repeat forever since it is a loop
   while True:
     pass # This is our placeholder for now 
 
