@@ -170,7 +170,7 @@ def menu_scene():
     text2.move(40,110)
     text2.text("PRESS START")
     text.append(text2)
-    # Displays the image stage background at a rate of 60 frames and
+    # Displays the image stage background at a rate of 60 Hz and
     # 60 Frames Per Sec (FPS)
     game = stage.Stage(ugame.display, constants.FP5)
 
@@ -204,6 +204,10 @@ def menu_scene():
 def game_scene():
 
 
+    #For Score
+    score = 0
+
+
     def show_alien():
         #This function takes an alien from off screen and moves it on screen
         for alien_number in range(len(aliens)):
@@ -228,6 +232,7 @@ def game_scene():
 
     # get sound file ready.
     pew_sound = open("pew.wav", "rb")
+    boom_sound = open("boom.wav", "rb")
     sound = ugame.audio
     sound.stop()
     sound.mute(False)
@@ -338,6 +343,28 @@ def game_scene():
                 if aliens[alien_number].y > constants.SCREEN_Y:
                     aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
                     show_alien()
+       
+        #Check for collision between Laser and alien.
+        for laser_number in range(len(lasers)):
+            if lasers[laser_number].x > 0:
+                for alien_number in range(len(aliens)):
+                    if aliens[alien_number].x > 0:
+                        if stage.collide(lasers[laser_number].x + 6, lasers[laser_number].y + 2,
+                                        lasers[laser_number].x + 11, lasers[laser_number].y + 12,
+                                        aliens[alien_number].x + 1, aliens[alien_number].y,
+                                        aliens[alien_number].x + 15, aliens[alien_number].y + 15):
+                            #You hit an alien.
+                            aliens[alien_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            lasers[laser_number].move(constants.OFF_SCREEN_X, constants.OFF_SCREEN_Y)
+                            sound.stop()
+                            sound.play(boom_sound)
+                            show_alien()
+                            show_alien()
+                            score = score + 1
+
+
+
+
         # Redraw sprites
         game.render_sprites(aliens + lasers + [ship])
         game.tick()
@@ -347,7 +374,6 @@ def game_scene():
 
 if __name__ == "__main__":
     splash_scene()
-
 
 
 
